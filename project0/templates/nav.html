@@ -1,0 +1,59 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light bg-secondary mb-3">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li>
+                <img src="{% static 'images/logo.png' %}" alt="">
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'home:thisindex' %}">首頁
+                    <span class="sr-only">(current)</span>
+                </a>
+            </li>
+
+            <!-- <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home:aboutme' %}">關於AIEN</a>
+                </li> -->
+            <!-- <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home:contactus' %}">聯絡我們</a>
+                </li> -->
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'home:allservice' %}">服務項目</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'product:index'%}">商品與服務</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'member:index'%}">會員管理</a>
+            </li>
+
+        </ul>
+        <!-- template引擎註解方法 -->
+        {# if name == None #}
+        <!-- template引擎註解方法 -->
+        {% if request.COOKIES.name %}
+        <span>{{ request.COOKIES.name }} 哩厚</span>
+        {% else %}
+        <span>請先</span>
+        {% endif %}
+        <ul class="navbar-nav float-right">
+
+            <li class="nav-item">
+                <!-- template引擎註解方法 -->
+                {# if name == None #}
+                <!-- template引擎註解方法 -->
+                {% if request.COOKIES.name %}
+                <a class="nav-link" href="{% url "member:logout" %}">登出</a>
+                {% else %}
+                <a class="nav-link" href="{% url "member:login" %}">登入</a>
+                {% endif %}
+            </li>
+        </ul>
+
+    </div>
+</nav>

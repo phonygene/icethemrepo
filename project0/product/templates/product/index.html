@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block 'main' %}
+<a href="{% url 'product:create' %}" class="btn btn-primary mb-3"><i class="fa fa-plus-circle" aria-hidden="true"></i> 新增商品</a>
+<table class="table table-bordered">
+    <thead>
+        <tr class="row">
+            <th>#id</th>
+            <th>型號</th>
+            <th>名稱</th>
+            <th>價格</th>
+            <th>圖片</th>
+            <th>編輯</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+        <tr class="row">
+            <td class="col-1">{{product.0}}</td>
+            <td class="col-2">{{product.2}}</td>
+            <td class="col-3">{{product.3}}</td>
+            <td class="col-2">{{product.5}}</td>
+            <td class="col-2"><img src="/media/{{product.4}}" class="img-thumbnail"></td>
+            <td class="col-2"><a href="{% url 'product:update' product.0 %}" class="btn btn-secondary mr-3"></a>
+            <a href="{% url 'product:delete' product.0 %}"class="btn btn-danger"></a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

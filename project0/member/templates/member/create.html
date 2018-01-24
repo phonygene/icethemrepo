@@ -1,0 +1,52 @@
+{% extends 'base.html'%}
+{% block 'main' %}
+<form method="POST">
+    {% csrf_token %}   
+    <div class="form-group row">
+        <label for="username" class="col-sm-2 col-form-label">姓名</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="username" id="username" placeholder="User Name">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="password" class="col-sm-2 col-form-label">密碼</label>
+        <div class="col-sm-10">
+            <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="useremail" class="col-sm-2 col-form-label">電子郵件</label>
+        <div class="col-sm-10">
+            <input type="email" class="form-control" name="useremail" id="useremail" placeholder="User Email">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="userbirth" class="col-sm-2 col-form-label">生日</label>
+        <div class="col-sm-10">
+            <input type="date" class="form-control" name="userbirth" id="userbirth" placeholder="Birthday">
+        </div>
+    </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-10 offset-md-2">
+            <button type="submit" class="btn btn-primary"><i class="fa fa-bath" aria-hidden="true"></i> 新增</button>
+        </div>
+    </div>
+</form>
+{% endblock %}
+{% block script %}
+<script>
+//DOM Tree 產生
+    $(document).ready(function(){
+        $('#username').blur(function(){
+            var name = $(this).val();
+            // todo 檢查帳號是否存在
+            //將帳號傳到伺服器上，由伺服器程式連到資料庫檢查帳號是否存在資料庫裏面
+            //回應存在or不存在
+            $.get('/member/checkname/' + name,function(data){
+            $('#username~div').text(data)
+            })
+        })
+    })
+</script>
+{% endblock %}

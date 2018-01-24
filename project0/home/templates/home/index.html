@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block 'main' %}
+<h2>現在時間：{{ now | date:'Y/m/d h:i A' }}</h2>
+<table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Email</th>
+            </tr>
+        </thead>               
+        <tbody>
+            {% for user in users|dictsort:'age' %} <!--迴圈中pipe|符號左右不要放空白-->
+              <tr>
+                  <td>{{user.name}}</td>
+                  <td>{{user.age}}</td>
+                  <td>{{user.email}}</td>
+              </tr>
+             {% endfor %}   
+        </tbody>    
+        </table>
+{% endblock %}
