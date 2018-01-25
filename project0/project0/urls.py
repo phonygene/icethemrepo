@@ -32,5 +32,6 @@ urlpatterns = [
     path('product/',include('product.urls')),
     path('member/',include('member.urls')),
     path('jquery/',include('jquery.urls')),
+    path('fridge/',include('fridge.urls')),
     path('api/',include(router.urls)),
     ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

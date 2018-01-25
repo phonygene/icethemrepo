@@ -1,0 +1,30 @@
+{% extends 'base.html'%}
+{% block content %}
+<form method="POST">
+    {% csrf_token %}   
+    <div class="form-group row">
+        <label for="username" class="col-sm-2 col-form-label">姓名</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="username" id="username" placeholder="User Name" value="{{user.username}}">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="useremail" class="col-sm-2 col-form-label">電子郵件</label>
+        <div class="col-sm-10">
+            <input type="email" class="form-control" name="useremail" id="useremail" placeholder="User Email" value="{{user.useremail}}">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="userbirth" class="col-sm-2 col-form-label">生日</label>
+        <div class="col-sm-10">
+            <input type="date" class="form-control" name="userbirth" id="userbirth" placeholder="Birthday" value="{{user.userbirth | date:'Y-m-d'}}">
+        </div>
+    </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-10 offset-md-2">
+            <button type="submit" class="btn btn-primary"><i class="fa fa-bath" aria-hidden="true"></i> 修改</button>
+        </div>
+    </div>
+</form>
+{% endblock %}

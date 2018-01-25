@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+{% block style %}
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+}
+#wholepage{
+    width: 100%;
+    margin: auto;
+    border:1px solid gray;
+}
+nav{
+
+}
+.menu {
+    overflow: auto;
+    width: 100%;
+    list-style-type: none;
+    background-color: rgb(91, 235, 203);
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    border-bottom: 3px solid #cccccc;
+}
+
+.menu li {
+    float: left;
+    width: 7em;
+    /*為了讓連結區域能依字型大小的變化自動放大,因此在指定width屬性時採用em為單位*/
+}
+
+.menu li a {
+    display: block;
+    width: 100%;
+    line-height: 2.5em;
+    text-decoration: none;
+    text-align: center;
+    color: rgb(82, 207, 223, 0.733);
+}
+
+.menu li a:hover {
+    color: aliceblue;
+    background-color: rgb(39, 153, 128);
+}
+.midbody{
+    margin: auto;
+    width:100%;
+    height:1000px;
+    float: left;
+}
+.fri{
+    margin-top:auto;
+    /* float: left; */
+
+    width:100%;
+    height:30%;
+    background-color: rgb(253, 230, 126);
+    border:1px solid rgb(59, 63, 63);
+    border-radius: 1000px;
+    list-style-type: none;
+    
+}
+.sta{
+    margin:5px;
+    float:left;
+    border-radius: 8px;
+    background-color: azure;
+    border-bottom: 3px solid  rgb(59, 63, 63);
+    width:auto;
+    height:auto;
+    max-height:100;
+    display: inline;
+    float: left;
+    /* margin:4px; */
+}
+h1{
+    margin:auto;
+    text-align: center;
+}
+.door{
+width:20%;
+height:250px;
+float: left;
+}
+#stacks{
+list-style-type: none;
+width:20%;
+height:250px;
+float: left;
+}
+
+.thumbnail{
+    width:auto;
+    height:auto;
+    max-width:100%;
+    max-height:75px;
+}
+
+.place{
+    width:auto;
+    height:500px;
+    max-width:100%;
+    max-height:100%;
+
+}
+
+
+
+</style>
+{% endblock %}
+<body>
+{% block 'main' %}
+
+
+
+
+
+<!-- 
+    <div style="width:10%;height:100%;float:left">
+
+    </div> -->
+
+    <div id="wholepage">
+
+    <div class = "place">
+        <ul id="stacks" name="sta11">
+            <!-- 迴圈產生多個物件時function不要綁定ID!!他只會取一個 -->
+        {% for food in foodsall %}    
+            <li id="staid" class="sta" name="drag">
+            <img src="/media/{{food.6}}" class="thumbnail">
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+    <hr>
+<!-- ................................................ -->
+<!-- 
+        <div class="door" id="door1" name="dragtarget">
+
+        </div> -->
+
+<!-- ................................................ -->
+
+        <div class="midbody" name="dragtarget">
+            <ul class ="fri" id="sortable">
+
+            </ul>
+        </div>
+        <div style="width:100px;height:100px"></div>
+
+<!-- ................................................ -->
+
+        <!-- <div class="door" id="door2" name="dragtarget">
+
+        </div> -->
+
+</div>
+{% endblock %}
+</body>
+{% block script %}
+<link rel="stylesheet"
+href="http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<script>
+    
+//   迴圈產生多個物件時function不要綁定ID!!他只會取一個
+  $(function() {
+    $( "#sortable" ).sortable({
+      revert: true,
+    });
+    $( ".sta" ).draggable({
+      connectToSortable: "#sortable",
+      helper: "clone",
+      revert: "invalid",
+    });
+    $( "#sortable" ).sortable({
+  drop: function() {
+    var foodid = ui.draggable.attr('foodid');
+    $.get('/fridge/sort' + foodid,function(id){
+    })
+  }
+    });
+    $( "ul, li" ).disableSelection();
+  });
+
+        // $(function() {
+        // //   $( ".sta" ).draggable({ snap: true,distance: 40  });
+        // // //   $( ".sta" ).draggable({ snap: "div[name$='dragtarget']" });
+        // $( ".sta" ).draggable({ snap: "div[name$='dragtarget']", snapMode: "inner",helper: "clone", opacity: "0.5",revert: "invalid", });
+        // // //   $( "#draggable4" ).draggable({ grid: [ 20, 20 ] });
+        // // //   $( "#draggable5" ).draggable({ grid: [ 80, 80 ] });
+        // $(".door").droppable( { accept: ".sta", hoverClass: "dropHover", } ); 
+        // });
+</script>
+<link rel="stylesheet"
+href="http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+{% endblock %}
+
+</html>

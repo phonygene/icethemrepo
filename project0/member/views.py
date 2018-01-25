@@ -109,7 +109,7 @@ def captcha(request):
     request.session['captcha'] = txt  
     
     width = 15 * 4
-    height = 30
+    height = 35
     image = Image.new('RGB', (width, height), (255, 255, 255))    
     # 下載字體https://fonts.google.com/
     thefont = finders.find('fonts/Kavivanar-Regular.ttf')

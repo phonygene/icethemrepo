@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block 'main' %}
+<a href="{% url 'fridge:create' %}" class="btn btn-primary mb-3"><i class="fa fa-plus-circle" aria-hidden="true"></i> 新增食物</a>
+<div>
+<table class="table">
+    <thead>
+        <tr class="row">
+                <th class="col-1"></th>
+            <th class="col-1">食物名稱</th>
+            <th class="col-1">食物類型</th>
+            <th class="col-1">保存日期</th>
+            <th class="col-1">保存期限</th>
+            <th class="col-1">食物圖片</th>
+            <th class="col-1"></th>
+            <th class="col-1">備註</th>
+            <th class="col-1">編輯</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for food in foodsall %}
+        <tr class="row">
+                <th class="col-1"></th>
+            <td class="col-1">{{food.2}}</td>
+            <td class="col-1">{{food.3}}</td>
+            <td class="col-1">{{food.4}}</td>
+            <td class="col-1">{{food.5}}</td>
+            <td class="col-2"><img src="/media/{{food.6}}" class="img-thumbnail img-fluid"></td>
+            <td class="col-1">{{food.7}}</td>
+            <td class="col-1">
+                    <a href="{% url 'fridge:update' food.0 %}" class="btn btn-secondary"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
+                    <a href="{% url 'fridge:delete' food.0 %}" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> </a>
+                </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

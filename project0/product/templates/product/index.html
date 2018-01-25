@@ -20,8 +20,9 @@
             <td class="col-3">{{product.3}}</td>
             <td class="col-2">{{product.5}}</td>
             <td class="col-2"><img src="/media/{{product.4}}" class="img-thumbnail"></td>
-            <td class="col-2"><a href="{% url 'product:update' product.0 %}" class="btn btn-secondary mr-3"></a>
-            <a href="{% url 'product:delete' product.0 %}"class="btn btn-danger"></a></td>
+            <td class="col-2">
+                <a href="{% url 'product:update' product.0 %}" class="btn btn-secondary mr-3"></a>
+                <a href="{% url 'product:delete' product.0 %}"class="btn btn-danger"></a></td>
         </tr>
         {% endfor %}
     </tbody>

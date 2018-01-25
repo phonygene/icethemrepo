@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block 'main' %}
+<a href="{% url 'fridge:index' %}" class="btn btn-primary mb-3"><i class="fa fa-plus-circle" aria-hidden="true"></i> 新增商品</a>
+<table class="table table-bordered">
+    <thead>
+        <tr class="row">
+            <th>#id</th>
+            <th>型號</th>
+            <th>名稱</th>
+            <th>價格</th>
+            <th>圖片</th>
+            <th>編輯</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- {% for fridge in fridges %}
+        <tr class="row">
+            <td class="col-1">{{fridge.0}}</td>
+            <td class="col-2">{{fridge.2}}</td>
+            <td class="col-3">{{fridge.3}}</td>
+            <td class="col-2">{{fridge.5}}</td>
+            <td class="col-2"><img src="/media/{{fridge.4}}" class="img-thumbnail"></td>
+            <td class="col-2"><a href="{% url 'fridge:update' fridge.0 %}" class="btn btn-secondary mr-3"></a>
+            <a href="{% url 'fridge:delete' fridge.0 %}"class="btn btn-danger"></a></td>
+        </tr>
+        {% endfor %} -->
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,27 @@
+﻿{% extends 'base.html'%}
+{% block content %}
+<a href="{% url "user:create" %}" class="btn btn-primary mb-3"><i class="fa fa-plus-circle" aria-hidden="true"></i> 會員新增</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>姓名</th>
+            <th>電子郵件</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+       {% for user in users%}
+        <tr>
+            <td>{{user.id}}</td>
+            <td>{{user.username}}</td>
+            <td>{{user.useremail}}</td>
+
+            <td>
+                <a href="{% url "user:update" user.id %}" class="btn btn-info mr-2">修改</a>
+                <a href="{% url "user:delete" user.id %}" class="btn btn-danger">刪除</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

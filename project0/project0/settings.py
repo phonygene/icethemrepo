@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'jquery',
     'todo',
     'rest_framework',
+    'fridge',
 ]
 
 MIDDLEWARE = [
