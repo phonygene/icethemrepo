@@ -55,7 +55,7 @@ def update(request, id):
         fs = FileSystemStorage()
         fs.save(thefile.name,thefile)
         
-        return redirect("/product")
+        return redirect('fridge/update.html',locals())
 
 def delete(reqeust, id):
     food = modelsfoods.Foods()
@@ -72,7 +72,8 @@ def stacks(request):
     foodsall = food.all()
     return render(request,'fridge/stacks.html',locals())
 def sort(request,foodid):
-
+    if request.method == "GET" :
+        foodid = request.POST['foodid']
     return HttpResponse("food:"+foodid)
 
 

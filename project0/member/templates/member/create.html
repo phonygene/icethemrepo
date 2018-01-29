@@ -43,7 +43,7 @@
             // todo 檢查帳號是否存在
             //將帳號傳到伺服器上，由伺服器程式連到資料庫檢查帳號是否存在資料庫裏面
             //回應存在or不存在
-            $.get('/member/checkname/' + name,function(data){
+            $.post('/member/checkname/' + name,function(data){
             $('#username~div').text(data)
             })
         })

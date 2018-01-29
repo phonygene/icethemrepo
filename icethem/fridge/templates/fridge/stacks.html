@@ -103,7 +103,27 @@ float: left;
     max-height:100%;
 
 }
+.sortableone{
+    margin-top:auto;
+    /* float: left; */
 
+    width:100%;
+    height:30%;
+    background-color: rgb(253, 230, 126);
+    border:1px solid rgb(59, 63, 63);
+    border-radius: 1000px;
+    list-style-type: none;
+}
+
+#devnull * {
+  display: none;
+}
+#devnull {
+  margin-left: 500px;
+  width: 200px;
+  height: 200px;
+  background: rgb(0, 132, 255);
+}
 
 
 </style>
@@ -131,6 +151,9 @@ float: left;
             </li>
         {% endfor %}
         </ul>
+    </ul>
+    <div id='devnull'>
+    </div>
     </div>
     <hr>
 <!-- ................................................ -->
@@ -162,6 +185,7 @@ float: left;
 href="http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<script src="http://rubaxa.github.io/Sortable/Sortable.js"></script>
 <script>
     
 //   迴圈產生多個物件時function不要綁定ID!!他只會取一個
@@ -173,16 +197,69 @@ href="http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
       connectToSortable: "#sortable",
       helper: "clone",
       revert: "invalid",
+      drop: function(event, ui) {            
+       $(this).changeClass('sortableone');}
     });
     $( "#sortable" ).sortable({
-  drop: function() {
-    var foodid = ui.draggable.attr('foodid');
-    $.get('/fridge/sort' + foodid,function(id){
-    })
-  }
+    drop: function() {
+        var foodid = ui.draggable.attr('foodid');
+        $.get('/fridge/sort' + foodid),function(data){
+            alert(data)
+            }
+    }
     });
     $( "ul, li" ).disableSelection();
   });
+  
+  
+  Sortable.create(sortable, {
+    group: "items"
+  });
+
+
+  Sortable.create(devnull, {
+  group: "items",
+
+  onAdd: function (evt) {
+    this.el.removeChild(evt.item);
+  }
+});
+
+
+
+  function addSortableOutsideDrop(sortableInstance, callback)
+		{
+			var enableDragover = function(evt){ evt.preventDefault(); };
+			document.documentElement.addEventListener("dragover", enableDragover);
+			
+			var setToInsideDrop = function(){ sortableInstance._isOutsideDrop = false; };
+			// Set to inside drop if dropping inside the sortable element
+			sortableInstance.el.addEventListener("drop", setToInsideDrop);
+			// Set to inside drop if moving items across sortable lists
+			Sortable.utils.on(sortableInstance.el, "add", setToInsideDrop);
+			Sortable.utils.on(sortableInstance.el, "remove", setToInsideDrop);
+
+			// On start, initialize to be outside drop
+			Sortable.utils.on(sortableInstance.el, "start", function(evt){
+				sortableInstance._isOutsideDrop = true;
+			});
+			// Check if is still outside drop, and if it is, do callback
+			Sortable.utils.on(sortableInstance.el, "end", function(evt){
+				if (sortableInstance._isOutsideDrop || typeof(sortableInstance._isOutsideDrop) == 'undefined')
+					callback(evt);
+			});
+		}
+
+
+  var draggableSortableOne = Sortable.create(sortable, {
+			sort:true,
+			group: "shared",
+		});
+    addSortableOutsideDrop(draggableSortableOne, function(evt){
+		var el = evt.item;
+		el.parentNode.removeChild(el);
+		alert('Trashed: ' + el.textContent);
+    });
 
         // $(function() {
         // //   $( ".sta" ).draggable({ snap: true,distance: 40  });

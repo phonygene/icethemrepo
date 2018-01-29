@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+    <script src="http://rubaxa.github.io/Sortable/Sortable.js"></script>
+    
+</head>
+<style>
+    	body {
+		padding: 20px;
+	}
+
+	.list-group-item {
+		cursor: move;
+		cursor: -webkit-grabbing;
+	}
+</style>
+<body>
+	<!-- draggable -->
+	<p>Sortable with Outside Drop Callback</p>
+	<div id="draggableOne" class="list-group">
+		<div class="list-group-item">foo</div>
+		<div class="list-group-item">bar</div>
+		<div class="list-group-item">baz</div>
+	</div>
+	
+    <br/><br/><br/><br/><br/><br/>
+  
+	<p>Normal Sortable</p>
+	<div id="draggableTwo" class="list-group">
+		<div class="list-group-item">foo</div>
+		<div class="list-group-item">bar</div>
+		<div class="list-group-item">baz</div>
+<script src="https://code.jquery.com/jquery.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    </div>
+    <script>
+        function addSortableOutsideDrop(sortableInstance, callback)
+		{
+			var enableDragover = function(evt){ evt.preventDefault(); };
+			document.documentElement.addEventListener("dragover", enableDragover);
+			
+			var setToInsideDrop = function(){ sortableInstance._isOutsideDrop = false; };
+			// Set to inside drop if dropping inside the sortable element
+			sortableInstance.el.addEventListener("drop", setToInsideDrop);
+			// Set to inside drop if moving items across sortable lists
+			Sortable.utils.on(sortableInstance.el, "add", setToInsideDrop);
+			Sortable.utils.on(sortableInstance.el, "remove", setToInsideDrop);
+
+			// On start, initialize to be outside drop
+			Sortable.utils.on(sortableInstance.el, "start", function(evt){
+				sortableInstance._isOutsideDrop = true;
+			});
+			// Check if is still outside drop, and if it is, do callback
+			Sortable.utils.on(sortableInstance.el, "end", function(evt){
+				if (sortableInstance._isOutsideDrop || typeof(sortableInstance._isOutsideDrop) == 'undefined')
+					callback(evt);
+			});
+		}
+		
+		var draggableSortableOne = Sortable.create(draggableOne, {
+			sort:true,
+			group: "shared",
+		});
+		var draggableSortableTwo = Sortable.create(draggableTwo, {
+			sort:true,
+			group: "shared",
+		});
+		
+		addSortableOutsideDrop(draggableSortableOne, function(evt){
+			var el = evt.item;
+			el.parentNode.removeChild(el);
+			alert('Trashed: ' + el.textContent);
+        });
+        
+        </script>
+</body>
+</html>
